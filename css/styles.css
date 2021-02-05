@@ -38,3 +38,9 @@
 #validation-input.invalid {
   border-color: #f44336;
 }
+
+/* task-8 */
+#boxes {
+  display: flex;
+  flex-wrap: wrap;
+}

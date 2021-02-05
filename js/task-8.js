@@ -12,16 +12,40 @@
 // Каждый следующий div после первого, должен быть шире и выше предыдущего на 10px
 // Создай функцию destroyBoxes(), которая очищает div#boxes.
 
-const boxesRef = document.querySelector('#boxes');
 const inputRef = document.querySelector('#controls input');
-console.log(boxesRef);
-console.log(inputRef);
-console.dir(inputRef);
+const renderBtn = document.querySelector('button[data-action="render"]');
+const destroyBtn = document.querySelector('button[data-action="destroy"]');
+const boxesRef = document.querySelector('#boxes');
 
-// const decrementBtn = document.querySelector('button[data-action="decrement"]');
+let currentBoxSize = 30;
+
+// render
+renderBtn.addEventListener('click', renderHandler);
+function renderHandler() {
+  const boxesToCreate = inputRef.valueAsNumber;
+  if (boxesToCreate >= 1) {
+    createBoxes(boxesToCreate);
+  }
+}
 
 function createBoxes(amount) {
-  // body
+  const boxes = new Array();
+  for (let i = 0; i < amount; i += 1) {
+    const boxRef = createBox(currentBoxSize);
+    boxes.push(boxRef);
+    currentBoxSize += 10;
+  }
+  boxesRef.append(...boxes);
+}
+
+function createBox(currentBoxSize) {
+  const box = document.createElement('div');
+  box.style.width = currentBoxSize + 'px';
+  box.style.height = currentBoxSize + 'px';
+  box.style.backgroundColor = getRandomColor();
+  box.style.marginTop = '5px';
+  box.style.marginRight = '5px';
+  return box;
 }
 
 function getRandomColor() {
@@ -32,67 +56,10 @@ function getRandomColor() {
   return '#' + c() + c() + c();
 }
 
-const color = getRandomColor();
-console.log(color);
-
-
-// input default value = ''
-
-//////////////////////////////////////////////////////////////////////
-// const inputRef = document.querySelector('#font-size-control');
-// const textRef = document.querySelector('#text');
-// inputRef.addEventListener('input', event => {
-//   textRef.style.fontSize = event.target.value + 'px';
-// })
-
-// value
-// element.style.backgroundColor
-// style="font-size: 2em"
-
-// change event
-// dataset.length
-
-// elemName.classList.add('className');
-// elemName.classList.remove('className');
-
-// const nameLabelRef = document.querySelector('.js-button > span');
-// const licenseRef = document.querySelector('.js-license');
-// const btnRef = document.querySelector('.js-button');
-// const focusRef = document.querySelector('.js-focus-blur');
-
-// focusRef.addEventListener('focus', handleInputFocus);
-// focusRef.addEventListener('blur', handleInputBlur);
-// inputRef.addEventListener('input', handleInputChange);
-// licenseRef.addEventListener('change', handleLicenseChange);
-
-// function handleInputFocus(event) {
-//   console.log('Получил фокус');
-// }
-// function handleInputBlur(event) {
-//   console.log('фокус потерян...');
-// }
-// function handleInputChange(event) {
-//   nameLabelRef.textContent = event.target.value;
-// }
-// function handleLicenseChange(event) {
-//   btnRef.disabled = !event.target.checked;
-// }
-
-// inputRef.addEventListener('change', event => {
-//   if (event.target.value.length === parseInt(inputRef.dataset.length)) {
-//     inputRef.classList.add('valid');
-//   } else {
-//     inputRef.classList.add('invalid');
-//   }
-// });
-
-// inputRef.addEventListener('focus', event => {
-//     inputRef.classList.remove('valid', 'invalid');
-// });
-
-// div.classList.toggle('visible', i < 10);
-
-// console.log(div.classList.contains('foo'));
-
-// // replace class "foo" with class "bar"
-// div.classList.replace('foo', 'bar');
+// destroy
+destroyBtn.addEventListener('click', destroyHandler);
+function destroyHandler() {
+  currentBoxSize = 30;
+  inputRef.value = '';
+  boxesRef.querySelectorAll('div').forEach(element => element.remove());
+}
