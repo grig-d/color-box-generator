@@ -1,0 +1,40 @@
+.task {
+  color: #888;
+  padding-left: 8px;
+  font-size: 20px;
+  background-color: #eee;
+}
+
+/* task-3 */
+/* использую id вместо класса потому что "1. Разметку менять НЕЛЬЗЯ." (c) Alona */
+
+#gallery {
+  padding-left: 15px;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#gallery li {
+  margin-right: 15px;
+  flex-basis: calc((100% - 45px) / 3);
+}
+
+#gallery img {
+  display: block;
+  width: 100%;
+}
+
+/* task-6 */
+#validation-input {
+  border: 3px solid #bdbdbd;
+}
+
+#validation-input.valid {
+  border-color: #4caf50;
+}
+
+#validation-input.invalid {
+  border-color: #f44336;
+}
