@@ -3,8 +3,16 @@ const inputRef = document.querySelector('#controls input');
 const renderBtn = document.querySelector('button[data-action="render"]');
 const destroyBtn = document.querySelector('button[data-action="destroy"]');
 const boxesRef = document.querySelector('#boxes');
+const sizeRef = document.querySelector('#size');
+const outputRef = document.querySelector('#output');
 
-let currentBoxSize = 200;
+// current box size
+let currentBoxSize = sizeRef.value;
+outputRef.textContent = sizeRef.value;
+sizeRef.addEventListener('input', event => {
+  currentBoxSize = sizeRef.value;
+  outputRef.textContent = sizeRef.value;
+});
 
 // render
 renderBtn.addEventListener('click', renderHandler);
