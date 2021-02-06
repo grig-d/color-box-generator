@@ -1,17 +1,14 @@
-
 const inputRef = document.querySelector('#controls input');
 const renderBtn = document.querySelector('button[data-action="render"]');
 const destroyBtn = document.querySelector('button[data-action="destroy"]');
 const boxesRef = document.querySelector('#boxes');
 const sizeRef = document.querySelector('#size');
-const outputRef = document.querySelector('#output');
+const rescaleRef = document.querySelector('#rescale');
 
 // current box size
 let currentBoxSize = sizeRef.value;
-outputRef.textContent = sizeRef.value;
 sizeRef.addEventListener('input', event => {
   currentBoxSize = sizeRef.value;
-  outputRef.textContent = sizeRef.value;
 });
 
 // render
@@ -40,6 +37,7 @@ function createBox(currentBoxSize) {
   box.style.backgroundColor = getRandomColor();
   box.style.marginTop = '5px';
   box.style.marginRight = '5px';
+  box.classList.add('rescale');
   return box;
 }
 
@@ -63,4 +61,14 @@ function destroyHandler() {
 const backgroundBtn = document.querySelector('#background');
 backgroundBtn.addEventListener('click', event => {
   boxesRef.classList.toggle('background');
+});
+
+// rescale
+rescaleRef.addEventListener('click', event => {
+  const rescaleList = document.querySelectorAll('.rescale');
+  console.log(rescaleList);
+  rescaleList.forEach(box => {
+    box.style.width = currentBoxSize + 'px';
+    box.style.height = currentBoxSize + 'px';
+  });
 });
